@@ -1,0 +1,38 @@
+{% extends 'kakuapp/base.html' %}
+
+{% block content %}
+  <h2>Products</h2>
+  <p><a href="{% url 'product_create' %}">Add a product</a></p>
+
+  {% if products %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Date added</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.date_added }}</td>
+            <td>
+              <a href="{% url 'product_edit' product.pk %}">Edit</a>
+              <a href="{% url 'product_delete' product.pk %}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No products available.</p>
+  {% endif %}
+{% endblock %}
